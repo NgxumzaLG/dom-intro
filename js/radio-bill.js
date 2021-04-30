@@ -8,8 +8,6 @@
     var radioBillAddBtnElement = document.querySelector(".radioBillAddBtn");
 
 //create a variable that will keep track of the total bill
-    var callTotal2 = 0;
-    var smsTotal2 = 0;
 
 //add an event listener for when the add button is pressed
   radioBillAddBtnElement.addEventListener('click', radioBillTotal)
@@ -20,37 +18,25 @@
 // * display the latest total on the screen
 
    
-        // billItemType will be 'call' or 'sms'
+// billItemType will be 'call' or 'sms'
+    let radioBillFactory = radioBill();
     
 
     function radioBillTotal (){
 
         var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
-        if (checkedRadioBtn){
-            var billItemType = checkedRadioBtn.value
+        radioBillFactory.radioAddCost(checkedRadioBtn.value)
 
-        }
+        callTotalTwoElement.innerHTML = radioBillFactory.getRadioCallTotal();
+        smsTotalTwoElement.innerHTML = radioBillFactory.getRadioSmsTotal();
+        totalTwoElement.innerHTML = radioBillFactory.radioAddTotal();
 
-        if (billItemType === "call") {
-            callTotal2 += 2.75;
+        totalTwoElement.classList.remove('warning')
+        totalTwoElement.classList.remove('danger')
 
-        } else if (billItemType === "sms"){
-            smsTotal2 += 0.75;
+        totalTwoElement.classList.add(radioBillFactory.totalRadioClassName())
 
-        }
 
-        var totalCost2 = callTotal2 + smsTotal2
-
-        callTotalTwoElement.innerHTML = callTotal2.toFixed(2);
-        smsTotalTwoElement.innerHTML = smsTotal2.toFixed(2);
-        totalTwoElement.innerHTML = totalCost2.toFixed(2);
-        
-        if (totalCost2 >= 50){
-            totalTwoElement.classList.add("danger");
-        }
-        else if (totalCost2 >= 30){
-            totalTwoElement.classList.add("warning");
-        }
     }
 
    

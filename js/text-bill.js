@@ -8,8 +8,7 @@
     var addBillBtnElement = document.querySelector(".addToBillBtn");
 
 //create a variable that will keep track of the total bill
-    var callsTotal = 0;
-    var smsTotal = 0;
+   
 
 //add an event listener for when the add button is pressed
     addBillBtnElement.addEventListener('click', textBillTotal);
@@ -20,29 +19,24 @@
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-function textBillTotal(){
-    // get the value entered in the billType textfield
-    var billTypeEntered = billTypeTextElement.value.trim();
-    // update the correct total
-    if (billTypeEntered === "call"){
-        callsTotal += 2.75
-    }
-    else if (billTypeEntered === "sms"){
-        smsTotal += 0.75;
-    }
-    
-    //update the totals that is displayed on the screen.
-    callTotalOneElement.innerHTML = callsTotal.toFixed(2);
-    smsTotalOneElement.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalOneElement.innerHTML = totalCost.toFixed(2);
+    let textBillFactory = textBill();
 
-    //color the total based on the criteria
-    if (totalCost >= 50){
-        // adding the danger class will make the text red
-        totalOneElement.classList.add("danger");
+    function textBillTotal(){
+        textBillFactory.textAddCost(billTypeTextElement.value)
+
+        callTotalOneElement.innerHTML = textBillFactory.getTextCallTotal();
+        smsTotalOneElement.innerHTML = textBillFactory.getTextSmsTotal();
+        totalOneElement.innerHTML = textBillFactory.textAddTotal();
+
+        // get the value entered in the billType textfield
+        
+        // //update the totals that is displayed on the screen.
+
+        // //color the total based on the criteria
+
+        totalOneElement.classList.remove('warning');
+        totalOneElement.classList.remove('danger');
+
+        totalOneElement.classList.add(textBillFactory.totalTextClassName());
+    
     }
-    else if (totalCost >= 30){
-        totalOneElement.classList.add("warning");
-    }
-}
