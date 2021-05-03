@@ -45,7 +45,10 @@
         settingsBillFactory.setWarningLevel(Number(warningLevelSettingElement.value));
         settingsBillFactory.setCriticalLevel(Number(criticalLevelSettingElement.value));
         
+        totalSettingsElement.classList.remove('warning');
+        totalSettingsElement.classList.remove('danger');
 
+        totalSettingsElement.classList.add(settingsBillFactory.totalClassName())
 
     }
 
